@@ -1,4 +1,4 @@
-# AntiIdleSaveManager
+# AntiIdle Save Manager
 Creator: Evanito (Evan Gierst) yopu1234 at gmail dot com
 
 This batch file is commented if you want to investigate the code with a simple explanation. I *recommend* reading it, in fact.
