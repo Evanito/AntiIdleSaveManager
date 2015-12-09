@@ -10,3 +10,5 @@ If at any time you need to restore, it does that just as easy.
 
 It also doesn’t install anything on your computer, it just makes a folder in your documents folder to house the backups. 
 I also advise you store the batch file there.
+
+Pull requests are encouraged, if you wish to help expand its reach.
