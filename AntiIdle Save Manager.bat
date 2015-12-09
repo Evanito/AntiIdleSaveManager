@@ -1,7 +1,7 @@
 @echo off & SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 title A-I Backup and Restore
 color 79
-:: Made by Evanito - https://steamcommunity.com/id/Evanito/
+:: Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 
 :: Hey there, inquisitive AntiIdler! You are looking at this code to see if it will make your computer explode. (It won't) I understand the curiosity, that's why this comment is here. 
 :: Since Google Chrome uses a string of random characters as a folder name to hide AntiIdle saves, the first step is to find that name.....
@@ -69,7 +69,7 @@ echo Completed.
 echo Your saves are kept in "Documents\Anti-Idle backup" 
 echo It is advised to keep this batch file there as well.
 echo -
-echo Made by Evanito - https://steamcommunity.com/id/Evanito/
+echo Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 echo Press any key to exit.
 pause >nul
 exit
