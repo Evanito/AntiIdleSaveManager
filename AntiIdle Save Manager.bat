@@ -54,6 +54,10 @@ goto end
 
 :restore
 :: This too.
+cls
+echo BE SURE THE GAME IS NOT RUNNING, YOUR SAVE WILL BE INSTANTLY OVERWRITTEN
+echo Press any key to continue...
+pause >nul
 copy "%HOMEPATH%\My Documents\Anti-Idle backup\antiIdle_file0" "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%TARGET%\chat.kongregate.com\antiIdle_file0.sol" /Y >nul
 copy "%HOMEPATH%\My Documents\Anti-Idle backup\antiIdle_file1" "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%TARGET%\chat.kongregate.com\antiIdle_file1.sol" /Y >nul
 copy "%HOMEPATH%\My Documents\Anti-Idle backup\antiIdle_file2" "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%TARGET%\chat.kongregate.com\antiIdle_file3.sol" /Y >nul
