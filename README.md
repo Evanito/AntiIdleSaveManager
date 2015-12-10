@@ -1,6 +1,8 @@
 # AntiIdle Save Manager
 Creator: Evanito (Evan Gierst) yopu1234 at gmail dot com
+
 Compatability: Supports Google Chrome, Firefox, and Microsoft Edge - tested on Windows 7 and 10
+
 Game: AntiIdle: The Game - http://www.kongregate.com/games/Tukkun/anti-idle-the-game
 
 The batch file is commented if you want to investigate the code with a simple explanation. I *recommend* reading it, in fact.
