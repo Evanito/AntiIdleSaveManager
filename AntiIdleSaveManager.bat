@@ -24,36 +24,36 @@ set "chromepath=%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shock
 
 :edgeinit
 :: This command will go to where that folder is and assign it a variable name: "edgetarget".
-FOR /F "tokens=*" %%G IN ('dir /B /AD "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects"') DO ( 
-set edgetarget=%%G
+FOR /F "tokens=*" %%E IN ('dir /B /AD "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects"') DO ( 
+set edgetarget=%%E
 )
 set "edgepath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com"
 
 :firefoxinit
 :: This command will go to where that folder is and assign it a variable name: "foxtarget". 
 :: Though it is exactly the same as the EDGE init, I'll keep it for safe keeping.
-FOR /F "tokens=*" %%G IN ('dir /B /AD "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects"') DO ( 
-set foxtarget=%%G
+FOR /F "tokens=*" %%F IN ('dir /B /AD "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects"') DO ( 
+set foxtarget=%%F
 )
 set "foxpath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com"
 
 :browsertest
 :: Tests for MS Edge saves
-if exist "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file0.sol" (
+if exist "%EDGEPATH%\antiIdle_file0.sol" (
 set edgefound=true
 echo Microsoft Edge saves found
 ) else (
 set edgedound=false
 )
 :: Tests for Chrome saves
-if exist "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file0.sol" (
+if exist "%CHROMEPATH%\antiIdle_file0.sol" (
 set chromefound=true
 echo Google Chrome saves found
 ) else (
 set chromefound=false
 )
 :: Tests for Firefox saves
-if exist "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file0.sol" (
+if exist "%FOXPATH%\antiIdle_file0.sol" (
 set foxfound=true
 echo Firefox saves found
 ) else (
