@@ -2,7 +2,7 @@
 
 Creator: Evanito (Evan Gierst) yopu1234 at gmail dot com
 
-Compatability: Supports Google Chrome, Firefox, and Microsoft Edge - tested on Windows 7 and 10
+Compatability: Supports Google Chrome, Firefox, and Microsoft Edge on Windows 7 and 10
 
 Game: *Anti-Idle: The Game* by Tukkun - http://www.kongregate.com/games/Tukkun/anti-idle-the-game
 
