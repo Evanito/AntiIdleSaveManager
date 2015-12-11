@@ -7,10 +7,10 @@ color 79
 :: Since Google Chrome uses a string of random characters as a folder name to hide AntiIdle saves, the first step is to find that name.....
 
 echo AntiIdle Backup and Restore tool
-echo -
+echo.
 echo This batch file will backup or restore your progress on all local files of Anti-Idle: The Game.
 echo Supports Google Chrome, Firefox, and Microsoft Edge running on Windows 7/10.
-echo -
+echo.
 echo Testing browsers for AntiIdle saves...
 
 
@@ -70,18 +70,18 @@ REM if exist "%HOMEPATH%\My Documents\Anti-Idle backup" (
 REM echo Backups found. 
 REM ) else set restorewarning=[UNAVAILABLE]
 
-echo -
+echo.
 echo This file will backup and/or restore ALL BROWSERS' SAVES AT ONCE. 
 echo BE SURE THE GAME IS CLOSED WHEN RESTORING
 
 :choice
-echo -
+echo.
 echo ------------------------------------------
 echo Choose one:
 echo 1. Backup %BACKUPWARNING%
 echo 2. Restore %RESTOREWARNING%
 echo ------------------------------------------
-echo -
+echo.
 
 set /p choice=Pick:
 rem if not '%choice%'=='' set choice=%choice:~0;1%
@@ -186,11 +186,11 @@ goto end
 
 
 :end
-echo -
+echo.
 echo Completed.
 echo Your saves are kept in "Documents\Anti-Idle backup" 
 echo It is advised to keep this batch file there as well.
-echo -
+echo.
 echo Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 echo Press any key to exit.
 pause >nul
@@ -202,7 +202,7 @@ echo UH OH! You have no saves to back up! :(
 echo Browsers supported: Chrome, MS Edge, and Firefox
 echo If you have one of these browsers, yet your save was still not found, please email me at:
 echo yopu1234 at gmail dot com
-echo -
+echo.
 echo Press any key to exit.
 pause >nul
 exit
@@ -211,10 +211,10 @@ exit
 cls
 echo UH OH! You have no saves to restore! :(
 echo Have you done a backup yet?
-echo -
+echo.
 echo Can't fix your error? Email me at:
 echo yopu1234 at gmail dot com
-echo -
+echo.
 echo Press any key to exit.
 pause >nul
 exit
