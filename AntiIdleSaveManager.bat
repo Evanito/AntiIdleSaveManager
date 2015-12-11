@@ -4,7 +4,7 @@ color 79
 :: Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 
 :: Hey there, inquisitive AntiIdler! You are looking at this code to see if it will make your computer explode. (It won't) I understand the curiosity, that's why this comment is here. 
-:: Since Google Chrome uses a string of random characters as a folder name to hide AntiIdle saves, the first step is to find that name.....
+:: Since Flash uses a string of random characters as a folder name to hide AntiIdle saves, the first step is to find that name.....
 
 echo AntiIdle Backup and Restore tool
 echo.
@@ -20,12 +20,14 @@ echo Testing browsers for AntiIdle saves...
 FOR /F "tokens=*" %%G IN ('dir /B /AD "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects"') DO ( 
 set gctarget=%%G
 )
+set "chromepath=%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com"
 
 :edgeinit
 :: This command will go to where that folder is and assign it a variable name: "edgetarget".
 FOR /F "tokens=*" %%G IN ('dir /B /AD "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects"') DO ( 
 set edgetarget=%%G
 )
+set "edgepath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com"
 
 :firefoxinit
 :: This command will go to where that folder is and assign it a variable name: "foxtarget". 
@@ -33,6 +35,7 @@ set edgetarget=%%G
 FOR /F "tokens=*" %%G IN ('dir /B /AD "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects"') DO ( 
 set foxtarget=%%G
 )
+set "foxpath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com"
 
 :browsertest
 :: Tests for MS Edge saves
@@ -134,22 +137,22 @@ echo Firefox save folder found.
 :backup
 :: Self explanatory.
 if '%chromefound%'=='true' (
-copy "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file0.sol" /Y
-copy "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file1.sol" /Y
-copy "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file2.sol" /Y
-copy "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file3.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file0.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file1.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file2.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file3.sol" /Y
 )
 if '%foxfound%'=='true' (
-copy "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file0.sol" /Y
-copy "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file1.sol" /Y
-copy "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file2.sol" /Y
-copy "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file3.sol" /Y
+copy "%FOXPATH%\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file0.sol" /Y
+copy "%FOXPATH%\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file1.sol" /Y
+copy "%FOXPATH%\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file2.sol" /Y
+copy "%FOXPATH%\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file3.sol" /Y
 )
 if '%edgefound%'=='true' (
-copy "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" /Y
-copy "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" /Y
-copy "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" /Y
-copy "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" /Y
+copy "%EDGEPATH%\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" /Y
+copy "%EDGEPATH%\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" /Y
+copy "%EDGEPATH%\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" /Y
+copy "%EDGEPATH%\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" /Y
 )
 cls
 echo Backups successful.
@@ -163,22 +166,22 @@ echo Main save folder found.
 :restore
 :: This should make sense too.
 if '%chromefound%'=='true' (
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file0" "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file0.sol" /Y >nul
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file1" "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file1.sol" /Y >nul
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file2" "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file3.sol" /Y >nul
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file3" "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com\antiIdle_file4.sol" /Y >nul
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file0" "%CHROMEPATH%\antiIdle_file0.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file1" "%CHROMEPATH%\antiIdle_file1.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file2" "%CHROMEPATH%\antiIdle_file3.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file3" "%CHROMEPATH%\antiIdle_file4.sol" /Y
 )
 if '%foxfound%'=='true' (
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file0.sol" "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file0.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file1.sol" "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file1.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file2.sol" "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file2.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file3.sol" "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com\antiIdle_file3.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file0.sol" "%FOXPATH%\antiIdle_file0.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file1.sol" "%FOXPATH%\antiIdle_file1.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file2.sol" "%FOXPATH%\antiIdle_file2.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file3.sol" "%FOXPATH%\antiIdle_file3.sol" /Y
 )
 if '%edgefound%'=='true' (
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file0.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file1.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file2.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com\antiIdle_file3.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" "%EDGEPATH%\antiIdle_file0.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" "%EDGEPATH%\antiIdle_file1.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" "%EDGEPATH%\antiIdle_file2.sol" /Y
+copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" "%EDGEPATH%\antiIdle_file3.sol" /Y
 )
 cls
 echo All saves restored.
