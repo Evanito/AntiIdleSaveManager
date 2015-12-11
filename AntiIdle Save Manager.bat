@@ -1,5 +1,5 @@
 @echo off & SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
-title Anti-Idle Backup and Restore
+title Anti-Idle Save Manager
 color 79
 :: Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 
