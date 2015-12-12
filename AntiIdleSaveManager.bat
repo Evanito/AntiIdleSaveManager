@@ -13,7 +13,12 @@ echo Supports Google Chrome, Firefox, and Microsoft Edge running on Windows 7/10
 echo.
 echo Testing browsers for AntiIdle saves...
 
-
+:documentsinit
+if exist %HOMEPATH%\Documents (
+set documentsfolder=%HOMEPATH\Documents
+) else if exist "%HOMEPATH%\My Documents" (
+set "documentsfolder=%HOMEPATH%\My Documents"
+) else goto documentserror
 
 :chromeinit
 :: This command will go to where that folder is and assign it a variable name: "gctarget".
@@ -69,7 +74,7 @@ set backupwarning=[UNAVAILABLE]
 )
 )
 
-REM if exist "%HOMEPATH%\My Documents\Anti-Idle backup" ( 
+REM if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
 REM echo Backups found. 
 REM ) else set restorewarning=[UNAVAILABLE]
 
@@ -114,74 +119,74 @@ goto nosavesbackup
 )
 
 :: This makes the backup folder(s) for you if you don't have it already. I advise you keep this batch file within the main one.
-if exist "%HOMEPATH%\My Documents\Anti-Idle backup" ( 
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
 echo Main save folder found. 
-) else MD "%HOMEPATH%\My Documents\Anti-Idle backup" >nul 2>nul 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup" >nul 2>nul 
 if '%chromefound%'=='true' (
-if exist "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome" (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome" (
 echo Chrome save folder found.
-) else MD "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome" >nul 2>nul 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome" >nul 2>nul 
 )
 if '%edgefound%'=='true' (
-if exist "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge" (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge" (
 echo Microsoft Edge save folder found.
-) else MD "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge" >nul 2>nul 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge" >nul 2>nul 
 )
 if '%foxfound%'=='true' (
-if exist "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox" (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox" (
 echo Firefox save folder found.
-) else MD "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox" >nul 2>nul 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox" >nul 2>nul 
 )
 
 
 :backup
 :: Self explanatory.
 if '%chromefound%'=='true' (
-copy "%CHROMEPATH%\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file0.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file1.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file2.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file3.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file0.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file1.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file2.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file3.sol" /Y
 )
 if '%foxfound%'=='true' (
-copy "%FOXPATH%\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file0.sol" /Y
-copy "%FOXPATH%\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file1.sol" /Y
-copy "%FOXPATH%\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file2.sol" /Y
-copy "%FOXPATH%\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file3.sol" /Y
+copy "%FOXPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file0.sol" /Y
+copy "%FOXPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file1.sol" /Y
+copy "%FOXPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file2.sol" /Y
+copy "%FOXPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file3.sol" /Y
 )
 if '%edgefound%'=='true' (
-copy "%EDGEPATH%\antiIdle_file0.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" /Y
-copy "%EDGEPATH%\antiIdle_file1.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" /Y
-copy "%EDGEPATH%\antiIdle_file2.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" /Y
-copy "%EDGEPATH%\antiIdle_file3.sol" "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" /Y
+copy "%EDGEPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" /Y
+copy "%EDGEPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" /Y
+copy "%EDGEPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" /Y
+copy "%EDGEPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" /Y
 )
 cls
 echo Backups successful.
 goto end
 
 :restoreinit
-if exist "%HOMEPATH%\My Documents\Anti-Idle backup" ( 
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
 echo Main save folder found. 
 ) else goto nosavesrestore
 
 :restore
 :: This should make sense too.
 if '%chromefound%'=='true' (
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file0" "%CHROMEPATH%\antiIdle_file0.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file1" "%CHROMEPATH%\antiIdle_file1.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file2" "%CHROMEPATH%\antiIdle_file3.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Google Chrome\antiIdle_file3" "%CHROMEPATH%\antiIdle_file4.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file0" "%CHROMEPATH%\antiIdle_file0.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file1" "%CHROMEPATH%\antiIdle_file1.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file2" "%CHROMEPATH%\antiIdle_file3.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file3" "%CHROMEPATH%\antiIdle_file4.sol" /Y
 )
 if '%foxfound%'=='true' (
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file0.sol" "%FOXPATH%\antiIdle_file0.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file1.sol" "%FOXPATH%\antiIdle_file1.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file2.sol" "%FOXPATH%\antiIdle_file2.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Firefox\antiIdle_file3.sol" "%FOXPATH%\antiIdle_file3.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file0.sol" "%FOXPATH%\antiIdle_file0.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file1.sol" "%FOXPATH%\antiIdle_file1.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file2.sol" "%FOXPATH%\antiIdle_file2.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file3.sol" "%FOXPATH%\antiIdle_file3.sol" /Y
 )
 if '%edgefound%'=='true' (
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" "%EDGEPATH%\antiIdle_file0.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" "%EDGEPATH%\antiIdle_file1.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" "%EDGEPATH%\antiIdle_file2.sol" /Y
-copy "%HOMEPATH%\My Documents\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" "%EDGEPATH%\antiIdle_file3.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" "%EDGEPATH%\antiIdle_file0.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" "%EDGEPATH%\antiIdle_file1.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" "%EDGEPATH%\antiIdle_file2.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" "%EDGEPATH%\antiIdle_file3.sol" /Y
 )
 cls
 echo All saves restored.
@@ -219,5 +224,16 @@ echo Can't fix your error? Email me at:
 echo yopu1234 at gmail dot com
 echo.
 echo Press any key to exit.
+pause >nul
+exit
+
+:documentserror
+cls
+echo UH OH! We couldn't find your documents folder!
+echo It could be localization or an unsupported version of Windows (such as Vista)
+echo.
+echo Please open an issue on the GitHub repository (Link in README)
+echo or email me at
+echo yopu1234 at gmail dot com
 pause >nul
 exit
