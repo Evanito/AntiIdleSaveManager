@@ -193,6 +193,7 @@ echo All saves restored.
 goto end
 
 
+:: And here are all the endings, they are alerts that either everything went well, or that something went wrong.
 :end
 echo.
 echo Completed.
@@ -229,11 +230,15 @@ exit
 
 :documentserror
 cls
-echo UH OH! We couldn't find your documents folder!
+echo UH OH! We couldn't find your documents folder! :(
 echo It could be localization or an unsupported version of Windows (such as Vista)
 echo.
 echo Please open an issue on the GitHub repository (Link in README)
 echo or email me at
 echo yopu1234 at gmail dot com
+echo.
+echo.
+echo If you want to continue anyway (And risk a new Documents folder appearing) Press any button.
+echo Or, close this window to exit.
 pause >nul
-exit
+goto chromeinit
