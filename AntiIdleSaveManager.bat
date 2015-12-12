@@ -11,15 +11,19 @@ echo.
 echo This batch file will backup or restore your progress on all local files of Anti-Idle: The Game.
 echo Supports Google Chrome, Firefox, and Microsoft Edge running on Windows 7/10.
 echo.
-echo Testing browsers for AntiIdle saves...
 
 :documentsinit
+echo Testing browsers for AntiIdle saves...
 if exist %HOMEPATH%\Documents (
 set documentsfolder=%HOMEPATH%\Documents
 ) else if exist "%HOMEPATH%\My Documents" (
 set "documentsfolder=%HOMEPATH%\My Documents"
 ) else if exist "%HOMEPATH%\Mis Documentos" (
 set "documentsfolder=%HOMEPATH%\Mis Documentos"
+) else if exist "%HOMEPATH%\Desktop" (
+echo Using Desktop fallback to backup!
+set "documentsfolder=%HOMEPATH%\Desktop"
+set desktopfallback=1
 ) else goto documentserror
 
 :chromeinit
@@ -48,21 +52,21 @@ set "foxpath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObject
 :: Tests for MS Edge saves
 if exist "%EDGEPATH%\antiIdle_file0.sol" (
 set edgefound=true
-echo Microsoft Edge saves found
+echo Microsoft Edge saves found.
 ) else (
 set edgedound=false
 )
 :: Tests for Chrome saves
 if exist "%CHROMEPATH%\antiIdle_file0.sol" (
 set chromefound=true
-echo Google Chrome saves found
+echo Google Chrome saves found.
 ) else (
 set chromefound=false
 )
 :: Tests for Firefox saves
 if exist "%FOXPATH%\antiIdle_file0.sol" (
 set foxfound=true
-echo Firefox saves found
+echo Firefox saves found.
 ) else (
 set foxfound=false
 )
@@ -76,9 +80,13 @@ set backupwarning=[UNAVAILABLE]
 )
 )
 
-REM if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
-REM echo Backups found. 
-REM ) else set restorewarning=[UNAVAILABLE]
+echo.
+echo Checking for existing backups...
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
+echo Backups found, ready to restore. 
+) else ( set restorewarning=[UNAVAILABLE]
+echo No backups found.
+)
 
 echo.
 echo This file will backup and/or restore ALL BROWSERS' SAVES AT ONCE. 
@@ -199,8 +207,12 @@ goto end
 :end
 echo.
 echo Completed.
-echo Your saves are kept in "Documents\Anti-Idle backup" 
-echo It is advised to keep this batch file there as well.
+if '%desktopfallback%'=='1' (
+echo Your saves are stored to your Desktop since they have nowhere else to go.
+) else echo Your saves are kept in your Documents folder in a folder named:
+echo "Anti-Idle backup" 
+echo It is highly advised to keep this batch file in that folder as well,
+echo to find it easily.
 echo.
 echo Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 echo Press any key to exit.
