@@ -29,3 +29,4 @@ Pull requests through GitHub are encouraged if you wish to help expand its featu
 
 ## Credits to Kongregate users:
 * Uroogla (For info on Microsoft Edge save location)
+* carlos198 (For bringing to my attention the chance that a documents folder may not be where I think it is)
