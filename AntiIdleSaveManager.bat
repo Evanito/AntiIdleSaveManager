@@ -15,9 +15,11 @@ echo Testing browsers for AntiIdle saves...
 
 :documentsinit
 if exist %HOMEPATH%\Documents (
-set documentsfolder=%HOMEPATH\Documents
+set documentsfolder=%HOMEPATH%\Documents
 ) else if exist "%HOMEPATH%\My Documents" (
 set "documentsfolder=%HOMEPATH%\My Documents"
+) else if exist "%HOMEPATH%\Mis Documentos" (
+set "documentsfolder=%HOMEPATH%\Mis Documentos"
 ) else goto documentserror
 
 :chromeinit
