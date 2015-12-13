@@ -114,8 +114,8 @@ echo ------------------------------------------
 echo.
 
 choice /c BR /t 30 /d B
-if errorlevel 1 goto backupint
-if errorlevel 2 goto restoreint
+if errorlevel 1 goto backupinit
+if errorlevel 2 goto restoreinit
 
 :: Old choosing method, I'm not using this.
 REM set /p choice=Pick:
