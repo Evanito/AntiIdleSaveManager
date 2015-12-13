@@ -46,13 +46,13 @@ The first time you run this, it will likely tell you the restore option is unava
 
 4) Select whether you wish to Backup your current saves or Restore previous backups.
 
-5a) If backing up, simply type “1” or “backup” then hit enter. Your saves in all browsers will be backed up to your Documents folder, in a folder called “Anti-Idle backup”.
+5a) If backing up, simply type "b" or "B". Your saves in all browsers will be backed up to your Documents folder, in a folder called “Anti-Idle backup”.
 
 5b) If restoring, first make sure the game is not running in any open browsers.
 
 That is very important.
 
-Then type “2” or “restore” and hit enter, your backups will move the location of their respective browser’s Anti-Idle saves.
+Then type "r" or "R", your backups will move the location of their respective browser’s Anti-Idle saves.
 
 Note: If your browser saves are deleted accidentally and you need to restore, run the game once to generate blank saves so the script can detect your browser, otherwise you will get an error. (Do not back up the blank saves.)
 

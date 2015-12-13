@@ -113,20 +113,24 @@ echo 2. Restore %RESTOREWARNING%
 echo ------------------------------------------
 echo.
 
-set /p choice=Pick:
-rem if not '%choice%'=='' set choice=%choice:~0;1%
-if '%choice%'=='1' (
-goto backupinit
-)
-if '%choice%'=='2' (
-goto restoreinit
-)
-if '%choice%'=='backup' (
-goto backupinit
-)
-if '%choice%'=='restore' (
-goto restoreinit
-)
+choice /c BR /t 30 /d B
+if errorlevel 1 goto backupint
+if errorlevel 2 goto restoreint
+
+:: Old choosing method, I'm not using this.
+REM set /p choice=Pick:
+REM if '%choice%'=='1' (
+REM goto backupinit
+REM )
+REM if '%choice%'=='2' (
+REM goto restoreinit
+REM )
+REM if '%choice%'=='backup' (
+REM goto backupinit
+REM )
+REM if '%choice%'=='restore' (
+REM goto restoreinit
+REM )
 
 
 
@@ -247,8 +251,8 @@ echo It is highly advised to keep this batch file in that folder as well,
 echo to find them easily.
 echo.
 echo Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
-echo Press any key to exit.
-pause >nul
+echo Press any key to exit, or exit in 30 seconds.
+timeout /t 30
 exit
 
 :nosavesbackup
