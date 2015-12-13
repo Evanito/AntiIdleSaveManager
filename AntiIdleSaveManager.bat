@@ -160,6 +160,18 @@ echo Firefox save folder found.
 ) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox" >nul 2>nul 
 )
 
+:: Makes a copy of the Save Manager alongside the Backups
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\AntiIdleSaveManager.bat" (
+echo Batch found
+) else (
+xcopy AntiIdleSaveManager.bat "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
+
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\README.md" (
+echo Readme found
+) else (
+xcopy README.md "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
+
+
 
 :backup
 :: Self explanatory.
