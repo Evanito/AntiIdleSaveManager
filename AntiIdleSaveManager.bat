@@ -119,7 +119,7 @@ if '%choice%'=='1' (
 goto backupinit
 )
 if '%choice%'=='2' (
-goto restore
+goto restoreinit
 )
 if '%choice%'=='backup' (
 goto backupinit
@@ -164,12 +164,18 @@ echo Firefox save folder found.
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\AntiIdleSaveManager.bat" (
 echo Batch found
 ) else (
-xcopy AntiIdleSaveManager.bat "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
-
+copy AntiIdleSaveManager.bat "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
+)
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\README.md" (
 echo Readme found
 ) else (
-xcopy README.md "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
+copy README.md "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
+)
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\LICENSE.txt" (
+echo License found
+) else (
+copy LICENSE.txt "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
+)
 
 
 
