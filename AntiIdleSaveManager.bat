@@ -14,8 +14,8 @@ echo.
 
 :documentsinit
 echo Testing browsers for AntiIdle saves...
-if exist %HOMEPATH%\Documents (
-set documentsfolder=%HOMEPATH%\Documents
+if exist "%HOMEPATH%\Documents" (
+set "documentsfolder=%HOMEPATH%\Documents"
 ) else if exist "%HOMEPATH%\My Documents" (
 set "documentsfolder=%HOMEPATH%\My Documents"
 ) else if exist "%HOMEPATH%\Mis Documentos" (
@@ -23,8 +23,20 @@ set "documentsfolder=%HOMEPATH%\Mis Documentos"
 ) else if exist "%HOMEPATH%\Desktop" (
 echo Using Desktop fallback to backup!
 set "documentsfolder=%HOMEPATH%\Desktop"
-set desktopfallback=1
-) else goto documentserror
+set desktopfallback=true
+) else ( 
+set "documentsfolder=/"
+set nodesktop=true
+goto documentserror
+)
+
+:init
+:: Some startup tests
+if not defined nodesktop goto chromeinit
+if %NODESKTOP%==true (
+echo Running without Documents folder...
+echo.
+)
 
 :chromeinit
 :: This command will go to where that folder is and assign it a variable name: "gctarget".
@@ -207,12 +219,14 @@ goto end
 :end
 echo.
 echo Completed.
-if '%desktopfallback%'=='1' (
+if '%DESKTOPFALLBACK%'=='true' (
 echo Your saves are stored to your Desktop since they have nowhere else to go.
-) else echo Your saves are kept in your Documents folder in a folder named:
+) else ( 
+echo Your saves are kept in your Documents folder in a folder named:
 echo "Anti-Idle backup" 
+)
 echo It is highly advised to keep this batch file in that folder as well,
-echo to find it easily.
+echo to find them easily.
 echo.
 echo Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 echo Press any key to exit.
@@ -255,4 +269,4 @@ echo.
 echo If you want to continue anyway (And risk a new Documents folder appearing) Press any button.
 echo Or, close this window to exit.
 pause >nul
-goto chromeinit
+goto init
