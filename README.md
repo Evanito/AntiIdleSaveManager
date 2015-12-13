@@ -30,3 +30,32 @@ Pull requests through GitHub are encouraged if you wish to help expand its featu
 ## Credits to Kongregate users:
 * Uroogla (For info on Microsoft Edge save location)
 * carlos198 (For bringing to my attention the chance that a documents folder may not be where I think it is)
+
+-------
+
+## Usage Tutorial:
+
+1) Download the .zip file from the link above and save it anywhere.
+
+2) Unzip the .zip and read the README.md if you want.
+
+3) Run the AntiIdleSaveManager.bat file.
+
+It checks your computer for any saves it can find, and will tell you which browser it found them in. It shows Google Chrome for me since I use Google Chrome, but it also supports Firefox and MS Edge. Since I have also used the tool before, it found my backups and is ready to restore them.
+The first time you run this, it will likely tell you the restore option is unavailable since you haven’t backed up yet.
+
+4) Select whether you wish to Backup your current saves or Restore previous backups.
+
+5a) If backing up, simply type “1” or “backup” then hit enter. Your saves in all browsers will be backed up to your Documents folder, in a folder called “Anti-Idle backup”.
+
+5b) If restoring, first make sure the game is not running in any open browsers.
+
+That is very important.
+
+Then type “2” or “restore” and your backups will take the location of where they should go.
+
+Note: If your browser saves are deleted accidentally and you need to restore, run the game once to generate blank saves so the script can detect your browser, otherwise you will get an error.
+
+6) Rest easy :-)
+
+7) (Optional) Check back to the downloads link occasionally, as this project is updated often (as of 12/12/15).
