@@ -52,10 +52,12 @@ The first time you run this, it will likely tell you the restore option is unava
 
 That is very important.
 
-Then type “2” or “restore” and your backups will take the location of where they should go.
+Then type “2” or “restore” and hit enter, your backups will move the location of their respective browser’s Anti-Idle saves.
 
-Note: If your browser saves are deleted accidentally and you need to restore, run the game once to generate blank saves so the script can detect your browser, otherwise you will get an error.
+Note: If your browser saves are deleted accidentally and you need to restore, run the game once to generate blank saves so the script can detect your browser, otherwise you will get an error. (Do not back up the blank saves.)
 
 6) Rest easy :-)
 
 7) (Optional) Check back to the downloads link occasionally, as this project is updated often (as of 12/12/15).
+
+Disclaimer: Batch files can be used for evil. Don’t trust just anyone on the internet offering you a batch file to run. Your computer will likely give you this same warning and it is your job to trust what you are running. I personally check every line of code that goes into my script and never allow anything that would be considered malicious. I do this project to help the community, not take advantage of it. That said, be careful.
