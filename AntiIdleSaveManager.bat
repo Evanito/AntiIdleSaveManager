@@ -37,6 +37,11 @@ if %NODESKTOP%==true (
 echo Running without Documents folder...
 echo.
 )
+:: Gets the date, for backup labeling.
+for /F "TOKENS=1 eol=/ DELIMS=/ " %%A in ('DATE/T') do set dd=%%A
+for /F "TOKENS=1,2 eol=/ DELIMS=/ " %%A in ('DATE/T') do set mm=%%B
+for /F "TOKENS=1,2,3 eol=/ DELIMS=/ " %%A in ('DATE/T') do set yyyy=%%C
+set date=%yyyy%%mm%%dd%
 
 :chromeinit
 :: This command will go to where that folder is and assign it a variable name: "gctarget".
@@ -114,9 +119,9 @@ echo ------------------------------------------
 echo.
 
 choice /c BR /t 30 /d B
-if errorlevel 1 goto backupinit
-if errorlevel 2 goto restoreinit
-
+if "%ERRORLEVEL%"=="1" goto backupinit
+if "%ERRORLEVEL%"=="2" goto restoreinit
+pause >nul
 :: Old choosing method, I'm not using this.
 REM set /p choice=Pick:
 REM if '%choice%'=='1' (
@@ -211,26 +216,55 @@ goto end
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
 echo Main save folder found. 
 ) else goto nosavesrestore
-echo HEY! You better have your game closed! Or else restoring may have no effect!
-echo HEY! You better have your game closed! Or else restoring may have no effect!
-echo HEY! You better have your game closed! Or else restoring may have no effect!
+cls
+echo HEY, You better have your game closed or else restoring may have no effect.
+echo HEY, You better have your game closed or else restoring may have no effect.
+echo HEY, You better have your game closed or else restoring may have no effect.
+echo I am not responsible for overwritten saves.
+echo.
+echo Press any key if you understand.
 pause >nul
 
 :restore
 :: This should make sense too.
+:: Makes an emergency backup as well, in case you accidentally overwrite something you didn't mean to.
 if '%chromefound%'=='true' (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups" ( 
+echo Restore backups folder found. 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups" >nul 2>nul 
+copy "%CHROMEPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file0_%date%.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file1_%date%.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file2_%date%.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file3_%date%.sol" /Y
+:: Restoring...
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file0" "%CHROMEPATH%\antiIdle_file0.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file1" "%CHROMEPATH%\antiIdle_file1.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file2" "%CHROMEPATH%\antiIdle_file3.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file3" "%CHROMEPATH%\antiIdle_file4.sol" /Y
 )
 if '%foxfound%'=='true' (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups" ( 
+echo Restore backups folder found. 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups" >nul 2>nul 
+copy "%FOXPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file0_%date%.sol" /Y
+copy "%FOXPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file1_%date%.sol" /Y
+copy "%FOXPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file2_%date%.sol" /Y
+copy "%FOXPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file3_%date%.sol" /Y
+:: Restoring...
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file0.sol" "%FOXPATH%\antiIdle_file0.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file1.sol" "%FOXPATH%\antiIdle_file1.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file2.sol" "%FOXPATH%\antiIdle_file2.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file3.sol" "%FOXPATH%\antiIdle_file3.sol" /Y
 )
 if '%edgefound%'=='true' (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups" ( 
+echo Restore backups folder found. 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups" >nul 2>nul 
+copy "%EDGEPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file0_%date%.sol" /Y
+copy "%EDGEPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file1_%date%.sol" /Y
+copy "%EDGEPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file2_%date%.sol" /Y
+copy "%EDGEPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file3_%date%.sol" /Y
+:: Restoring...
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" "%EDGEPATH%\antiIdle_file0.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" "%EDGEPATH%\antiIdle_file1.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" "%EDGEPATH%\antiIdle_file2.sol" /Y
@@ -238,6 +272,7 @@ copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" "%ED
 )
 cls
 echo All saves restored.
+echo Backups of your active saves before restore can be found in the Restore Backups folder.
 goto end
 
 
