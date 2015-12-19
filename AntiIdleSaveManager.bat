@@ -38,7 +38,7 @@ echo Running without Documents folder...
 echo.
 )
 :: Gets the mydate, for backup labeling.
-for /f "skip=1" %%x in ('wmic os get localmydatetime') do if not defined mymydate set mymydate=%%x
+for /f "skip=1" %%x in ('wmic os get localmydatetime') do if not defined mydate set mydate=%%x
 echo %MYDATE%
 
 :chromeinit
