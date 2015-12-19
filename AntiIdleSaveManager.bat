@@ -211,6 +211,10 @@ goto end
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
 echo Main save folder found. 
 ) else goto nosavesrestore
+echo HEY! You better have your game closed! Or else restoring may have no effect!
+echo HEY! You better have your game closed! Or else restoring may have no effect!
+echo HEY! You better have your game closed! Or else restoring may have no effect!
+pause >nul
 
 :restore
 :: This should make sense too.
