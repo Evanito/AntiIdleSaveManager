@@ -65,21 +65,21 @@ set "foxpath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObject
 
 :browsertest
 :: Tests for MS Edge saves
-if exist "%EDGEPATH%\antiIdle_file0.sol" (
+if exist "%EDGEPATH%\antiIdle_file*.sol" (
 set edgefound=true
 echo Microsoft Edge saves found.
 ) else (
 set edgedound=false
 )
 :: Tests for Chrome saves
-if exist "%CHROMEPATH%\antiIdle_file0.sol" (
+if exist "%CHROMEPATH%\antiIdle_file*.sol" (
 set chromefound=true
 echo Google Chrome saves found.
 ) else (
 set chromefound=false
 )
 :: Tests for Firefox saves
-if exist "%FOXPATH%\antiIdle_file0.sol" (
+if exist "%FOXPATH%\antiIdle_file*.sol" (
 set foxfound=true
 echo Firefox saves found.
 ) else (
@@ -111,8 +111,8 @@ echo BE SURE THE GAME IS CLOSED WHEN RESTORING
 echo.
 echo ------------------------------------------
 echo Choose one:
-echo 1. Backup %BACKUPWARNING%
-echo 2. Restore %RESTOREWARNING%
+echo B - Backup %BACKUPWARNING%
+echo R - Restore %RESTOREWARNING%
 echo ------------------------------------------
 echo.
 
@@ -189,22 +189,16 @@ copy LICENSE.txt "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
 :backup
 :: Self explanatory.
 if '%chromefound%'=='true' (
-copy "%CHROMEPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file0.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file1.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file2.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file3.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file*.sol" /Y
+copy "%CHROMEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\ATG_Global.sol" /Y
 )
 if '%foxfound%'=='true' (
-copy "%FOXPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file0.sol" /Y
-copy "%FOXPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file1.sol" /Y
-copy "%FOXPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file2.sol" /Y
-copy "%FOXPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file3.sol" /Y
+copy "%FOXPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file*.sol" /Y
+copy "%FOXPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\ATG_Global.sol" /Y
 )
 if '%edgefound%'=='true' (
-copy "%EDGEPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" /Y
-copy "%EDGEPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" /Y
-copy "%EDGEPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" /Y
-copy "%EDGEPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" /Y
+copy "%EDGEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file*.sol" /Y
+copy "%EDGEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\ATG_Global.sol" /Y
 )
 cls
 echo Backups successful.
@@ -216,11 +210,14 @@ echo Main save folder found.
 ) else goto nosavesrestore
 cls
 echo HEY, You better have your game closed or else restoring may have no effect.
-echo HEY, You better have your game closed or else restoring may have no effect.
-echo HEY, You better have your game closed or else restoring may have no effect.
+echo.
+echo You better have your game closed or else restoring may have no effect.
+echo.
+echo You better have your game closed or else restoring may have no effect.
+echo.
 echo I am not responsible for overwritten saves.
 echo.
-echo Press any key if you understand.
+echo Press any key if you understand and wish to continue.
 pause >nul
 
 :restore
@@ -230,43 +227,31 @@ if '%chromefound%'=='true' (
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups" ( 
 echo Restore backups folder found. 
 ) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups" >nul 2>nul 
-copy "%CHROMEPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file0_%mydate%.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file1_%mydate%.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file2_%mydate%.sol" /Y
-copy "%CHROMEPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file3_%mydate%.sol" /Y
+copy "%CHROMEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file*%mydate%.sol" /Y
+copy "%CHROMEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\ATG_Global%mydate%.sol" /Y
 :: Restoring...
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file0" "%CHROMEPATH%\antiIdle_file0.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file1" "%CHROMEPATH%\antiIdle_file1.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file2" "%CHROMEPATH%\antiIdle_file3.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file3" "%CHROMEPATH%\antiIdle_file4.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file*" "%CHROMEPATH%\antiIdle_file*.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\ATG_Global.sol" "%CHROMEPATH%\ATG_Global.sol" /Y
 )
 if '%foxfound%'=='true' (
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups" ( 
 echo Restore backups folder found. 
 ) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups" >nul 2>nul 
-copy "%FOXPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file0_%mydate%.sol" /Y
-copy "%FOXPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file1_%mydate%.sol" /Y
-copy "%FOXPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file2_%mydate%.sol" /Y
-copy "%FOXPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file3_%mydate%.sol" /Y
+copy "%FOXPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file*%mydate%.sol" /Y
+copy "%FOXPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\ATG_Global%mydate%.sol" /Y
 :: Restoring...
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file0.sol" "%FOXPATH%\antiIdle_file0.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file1.sol" "%FOXPATH%\antiIdle_file1.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file2.sol" "%FOXPATH%\antiIdle_file2.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file3.sol" "%FOXPATH%\antiIdle_file3.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file*.sol" "%FOXPATH%\antiIdle_file*.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\ATG_Global.sol" "%FOXPATH%\ATG_Global.sol" /Y
 )
 if '%edgefound%'=='true' (
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups" ( 
 echo Restore backups folder found. 
 ) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups" >nul 2>nul 
-copy "%EDGEPATH%\antiIdle_file0.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file0_%mydate%.sol" /Y
-copy "%EDGEPATH%\antiIdle_file1.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file1_%mydate%.sol" /Y
-copy "%EDGEPATH%\antiIdle_file2.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file2_%mydate%.sol" /Y
-copy "%EDGEPATH%\antiIdle_file3.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file3_%mydate%.sol" /Y
+copy "%EDGEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file*%mydate%.sol" /Y
+copy "%EDGEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\ATG_Global%mydate%.sol" /Y
 :: Restoring...
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file0.sol" "%EDGEPATH%\antiIdle_file0.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file1.sol" "%EDGEPATH%\antiIdle_file1.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file2.sol" "%EDGEPATH%\antiIdle_file2.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file3.sol" "%EDGEPATH%\antiIdle_file3.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file*.sol" "%EDGEPATH%\antiIdle_file*.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\ATG_Global.sol" "%EDGEPATH%\ATG_Global.sol" /Y
 )
 cls
 echo All saves restored.
