@@ -1,5 +1,5 @@
 @echo off & SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
-title Anti-Idle Save Manager v1.2.0
+title Anti-Idle Save Manager v1.3.0
 color 79
 :: Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 
