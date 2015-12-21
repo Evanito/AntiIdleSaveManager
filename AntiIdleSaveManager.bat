@@ -37,7 +37,7 @@ if %NODESKTOP%==true (
 echo Running without Documents folder...
 echo.
 )
-:: Gets the mydate, for backup labeling.
+:: Gets mydate, for backup labeling.
 for /f "skip=1" %%x in ('wmic os get localmydatetime') do if not defined mydate set mydate=%%x
 echo %MYDATE%
 
@@ -114,13 +114,15 @@ echo Choose one:
 echo B - Backup %BACKUPWARNING%
 echo R - Restore %RESTOREWARNING%
 echo ------------------------------------------
+echo Will default to Backup after 30 seconds.
 echo.
 
 choice /c BR /t 30 /d B
 if "%ERRORLEVEL%"=="1" goto backupinit
 if "%ERRORLEVEL%"=="2" goto restoreinit
 pause >nul
-:: Old choosing method, I'm not using this.
+
+:: Legacy choosing method, I'm not using this.
 REM set /p choice=Pick:
 REM if '%choice%'=='1' (
 REM goto backupinit
@@ -187,7 +189,7 @@ copy LICENSE.txt "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
 
 
 :backup
-:: Self explanatory.
+:: Backups game saves to Documents
 if '%chromefound%'=='true' (
 copy "%CHROMEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file*.sol" /Y
 copy "%CHROMEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\ATG_Global.sol" /Y
@@ -205,6 +207,7 @@ echo Backups successful.
 goto end
 
 :restoreinit
+:: Makes sure everything is set for restoring.
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
 echo Main save folder found. 
 ) else goto nosavesrestore
@@ -221,8 +224,9 @@ echo Press any key if you understand and wish to continue.
 pause >nul
 
 :restore
-:: This should make sense too.
-:: Makes an emergency backup as well, in case you accidentally overwrite something you didn't mean to.
+:: Restores files from Documents.
+
+:: Makes an emergency backup, in case you accidentally overwrite something you didn't mean to.
 if '%chromefound%'=='true' (
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups" ( 
 echo Restore backups folder found. 
@@ -233,6 +237,7 @@ copy "%CHROMEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Ch
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file*" "%CHROMEPATH%\antiIdle_file*.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\ATG_Global.sol" "%CHROMEPATH%\ATG_Global.sol" /Y
 )
+
 if '%foxfound%'=='true' (
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups" ( 
 echo Restore backups folder found. 
@@ -243,6 +248,7 @@ copy "%FOXPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrom
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file*.sol" "%FOXPATH%\antiIdle_file*.sol" /Y
 copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\ATG_Global.sol" "%FOXPATH%\ATG_Global.sol" /Y
 )
+
 if '%edgefound%'=='true' (
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups" ( 
 echo Restore backups folder found. 
@@ -273,6 +279,7 @@ echo It is highly advised to keep this batch file in that folder as well,
 echo to find them easily.
 echo.
 echo Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
+echo.
 echo Press any key to exit, or exit in 30 seconds.
 timeout /t 30
 exit
