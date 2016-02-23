@@ -1,5 +1,5 @@
 @echo off & SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
-title Anti-Idle Save Manager v1.3.0
+title Anti-Idle Save Manager v2.0.0
 color 79
 :: Made by Evanito - https://github.com/Evanito/AntiIdleSaveManager
 
@@ -9,7 +9,7 @@ color 79
 echo AntiIdle Backup and Restore tool
 echo.
 echo This batch file will backup or restore your progress on all local files of Anti-Idle: The Game.
-echo Supports Google Chrome, Firefox, and Microsoft Edge running on Windows 7/10.
+echo Supports browsers using Pepper or Adobe Flash (Google Chrome, Firefox, Microsoft Edge, etc.) running on Windows 7/10.
 echo.
 
 :documentsinit
@@ -32,7 +32,7 @@ goto documentserror
 
 :init
 :: Some startup tests
-if not defined nodesktop goto chromeinit
+if not defined nodesktop goto pepperinit
 if %NODESKTOP%==true (
 echo Running without Documents folder...
 echo.
@@ -41,57 +41,42 @@ echo.
 for /f "skip=1" %%x in ('wmic os get localmydatetime') do if not defined mydate set mydate=%%x
 echo %MYDATE%
 
-:chromeinit
-:: This command will go to where that folder is and assign it a variable name: "gctarget".
+:pepperinit
+:: This command will go to where that folder is and assign it a variable name: "pptarget".
 FOR /F "tokens=*" %%G IN ('dir /B /AD "%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects"') DO ( 
-set gctarget=%%G
+set pptarget=%%G
 )
-set "chromepath=%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%GCTARGET%\chat.kongregate.com"
+set "pepperpath=%LOCALAPPDATA%\Google\Chrome\User Data\Default\Pepper Data\Shockwave Flash\WritableRoot\#SharedObjects\%PPTARGET%\chat.kongregate.com"
 
-:edgeinit
-:: This command will go to where that folder is and assign it a variable name: "edgetarget".
+:adobeinit
+:: This command will go to where that folder is and assign it a variable name: "adobetarget".
 FOR /F "tokens=*" %%E IN ('dir /B /AD "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects"') DO ( 
-set edgetarget=%%E
+set adobetarget=%%E
 )
-set "edgepath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%EDGETARGET%\#AppContainer\chat.kongregate.com"
+set "adobepath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%ADOBETARGET%\#AppContainer\chat.kongregate.com"
 
-:firefoxinit
-:: This command will go to where that folder is and assign it a variable name: "foxtarget". 
-:: Though it is exactly the same as the EDGE init, I'll keep it for safe keeping.
-FOR /F "tokens=*" %%F IN ('dir /B /AD "%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects"') DO ( 
-set foxtarget=%%F
-)
-set "foxpath=%USERPROFILE%\AppData\Roaming\Macromedia\Flash Player\#SharedObjects\%FOXTARGET%\chat.kongregate.com"
 
 :browsertest
-:: Tests for MS Edge saves
-if exist "%EDGEPATH%\antiIdle_file*.sol" (
-set edgefound=true
-echo Microsoft Edge saves found.
+:: Tests for AdobeFlash saves
+if exist "%ADOBEPATH%\antiIdle_file*.sol" (
+set adobefound=true
+echo Adobe Flash saves found.
 ) else (
-set edgedound=false
+set adobefound=false
 )
-:: Tests for Chrome saves
-if exist "%CHROMEPATH%\antiIdle_file*.sol" (
-set chromefound=true
-echo Google Chrome saves found.
+:: Tests for PepperFlash (Chrome) saves
+if exist "%PEPPERPATH%\antiIdle_file*.sol" (
+set pepperfound=true
+echo Pepper Flash saves found.
 ) else (
-set chromefound=false
-)
-:: Tests for Firefox saves
-if exist "%FOXPATH%\antiIdle_file*.sol" (
-set foxfound=true
-echo Firefox saves found.
-) else (
-set foxfound=false
+set pepperfound=false
 )
 
-if '%chromefound%'=='false' (
-if '%edgefound%'=='false' (
-if '%foxfound%'=='false' (
+
+if '%pepperfound%'=='false' (
+if '%adobefound%'=='false' (
 echo NO BROWSERS FOUND, BACKUP UNAVAILABLE
 set backupwarning=[UNAVAILABLE]
-)
 )
 )
 
@@ -122,30 +107,12 @@ if "%ERRORLEVEL%"=="1" goto backupinit
 if "%ERRORLEVEL%"=="2" goto restoreinit
 pause >nul
 
-:: Legacy choosing method, I'm not using this.
-REM set /p choice=Pick:
-REM if '%choice%'=='1' (
-REM goto backupinit
-REM )
-REM if '%choice%'=='2' (
-REM goto restoreinit
-REM )
-REM if '%choice%'=='backup' (
-REM goto backupinit
-REM )
-REM if '%choice%'=='restore' (
-REM goto restoreinit
-REM )
-
-
 
 :backupinit
 :: Double checks the saves exist in the first place.
-if '%chromefound%'=='false' (
-if '%edgefound%'=='false' (
-if '%foxfound%'=='false' (
+if '%pepperfound%'=='false' (
+if '%adobefound%'=='false' (
 goto nosavesbackup
-)
 )
 )
 
@@ -153,36 +120,34 @@ goto nosavesbackup
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup" ( 
 echo Main save folder found. 
 ) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup" >nul 2>nul 
-if '%chromefound%'=='true' (
-if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome" (
+if '%pepperfound%'=='true' (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)" (
 echo Chrome save folder found.
-) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome" >nul 2>nul 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)" >nul 2>nul 
 )
-if '%edgefound%'=='true' (
-if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge" (
+if '%adobefound%'=='true' (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)" (
 echo Microsoft Edge save folder found.
-) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge" >nul 2>nul 
-)
-if '%foxfound%'=='true' (
-if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox" (
-echo Firefox save folder found.
-) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox" >nul 2>nul 
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)" >nul 2>nul 
 )
 
 :: Makes a copy of the Save Manager alongside the Backups
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\AntiIdleSaveManager.bat" (
-echo Batch found
+echo.
 ) else (
+echo Batch missing
 copy AntiIdleSaveManager.bat "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
 )
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\README.md" (
-echo Readme found
+echo.
 ) else (
+echo Readme missing
 copy README.md "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
 )
 if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\LICENSE.txt" (
-echo License found
+echo.
 ) else (
+echo License missing
 copy LICENSE.txt "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
 )
 
@@ -190,17 +155,13 @@ copy LICENSE.txt "%DOCUMENTSFOLDER%\Anti-Idle backup\" /Y
 
 :backup
 :: Backups game saves to Documents
-if '%chromefound%'=='true' (
-copy "%CHROMEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file*.sol" /Y
-copy "%CHROMEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\ATG_Global.sol" /Y
+if '%pepperfound%'=='true' (
+copy "%PEPPERPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)\antiIdle_file*.sol" /Y
+copy "%PEPPERPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)\ATG_Global.sol" /Y
 )
-if '%foxfound%'=='true' (
-copy "%FOXPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file*.sol" /Y
-copy "%FOXPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\ATG_Global.sol" /Y
-)
-if '%edgefound%'=='true' (
-copy "%EDGEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file*.sol" /Y
-copy "%EDGEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\ATG_Global.sol" /Y
+if '%adobefound%'=='true' (
+copy "%ADOBEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)\antiIdle_file*.sol" /Y
+copy "%ADOBEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)\ATG_Global.sol" /Y
 )
 cls
 echo Backups successful.
@@ -227,37 +188,26 @@ pause >nul
 :: Restores files from Documents.
 
 :: Makes an emergency backup, in case you accidentally overwrite something you didn't mean to.
-if '%chromefound%'=='true' (
-if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups" ( 
+if '%pepperfound%'=='true' (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)\Restore Backups" ( 
 echo Restore backups folder found. 
-) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups" >nul 2>nul 
-copy "%CHROMEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\antiIdle_file*%mydate%.sol" /Y
-copy "%CHROMEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\ATG_Global%mydate%.sol" /Y
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)\Restore Backups" >nul 2>nul 
+copy "%PEPPERPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)\Restore Backups\antiIdle_file*%mydate%.sol" /Y
+copy "%PEPPERPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)\Restore Backups\ATG_Global%mydate%.sol" /Y
 :: Restoring...
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\antiIdle_file*" "%CHROMEPATH%\antiIdle_file*.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\ATG_Global.sol" "%CHROMEPATH%\ATG_Global.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)\antiIdle_file*" "%PEPPERPATH%\antiIdle_file*.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\PepperFlash (Chrome)\ATG_Global.sol" "%PEPPERPATH%\ATG_Global.sol" /Y
 )
 
-if '%foxfound%'=='true' (
-if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups" ( 
+if '%adobefound%'=='true' (
+if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)\Restore Backups" ( 
 echo Restore backups folder found. 
-) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups" >nul 2>nul 
-copy "%FOXPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\Restore Backups\antiIdle_file*%mydate%.sol" /Y
-copy "%FOXPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\ATG_Global%mydate%.sol" /Y
+) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)\Restore Backups" >nul 2>nul 
+copy "%ADOBEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)\Restore Backups\antiIdle_file*%mydate%.sol" /Y
+copy "%ADOBEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)\Restore Backups\ATG_Global%mydate%.sol" /Y
 :: Restoring...
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\antiIdle_file*.sol" "%FOXPATH%\antiIdle_file*.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\ATG_Global.sol" "%FOXPATH%\ATG_Global.sol" /Y
-)
-
-if '%edgefound%'=='true' (
-if exist "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups" ( 
-echo Restore backups folder found. 
-) else MD "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups" >nul 2>nul 
-copy "%EDGEPATH%\antiIdle_file*.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\Restore Backups\antiIdle_file*%mydate%.sol" /Y
-copy "%EDGEPATH%\ATG_Global.sol" "%DOCUMENTSFOLDER%\Anti-Idle backup\Google Chrome\Restore Backups\ATG_Global%mydate%.sol" /Y
-:: Restoring...
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Microsoft Edge\antiIdle_file*.sol" "%EDGEPATH%\antiIdle_file*.sol" /Y
-copy "%DOCUMENTSFOLDER%\Anti-Idle backup\Firefox\ATG_Global.sol" "%EDGEPATH%\ATG_Global.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)\antiIdle_file*.sol" "%ADOBEPATH%\antiIdle_file*.sol" /Y
+copy "%DOCUMENTSFOLDER%\Anti-Idle backup\AdobeFlash (Edge, Firefox)\ATG_Global.sol" "%ADOBEPATH%\ATG_Global.sol" /Y
 )
 cls
 echo All saves restored.
@@ -287,7 +237,7 @@ exit
 :nosavesbackup
 cls
 echo UH OH! You have no saves to back up! :(
-echo Browsers supported: Chrome, MS Edge, and Firefox
+echo Browsers 100% supported: Chrome, MS Edge, and Firefox
 echo If you have one of these browsers, yet your save was still not found, please email me at:
 echo yopu1234 at gmail dot com
 echo.
