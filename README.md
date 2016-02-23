@@ -42,7 +42,8 @@ Pull requests through GitHub are encouraged if you wish to help expand its featu
 
 3) Run the AntiIdleSaveManager.bat file.
 
-It checks your computer for any saves it can find, and will tell you which browser it found them in. It shows Google Chrome for me since I use Google Chrome, but it also supports Firefox and MS Edge. Since I have also used the tool before, it found my backups and is ready to restore them.
+It checks your computer for any saves it can find, and will tell you which Flash version it found them in. It shows Google Chrome for me since Google Chrome uses Pepper Flash, but it also supports Adobe Flash (Firefox, MS Edge, etc.) 
+Since I have also used the tool before, it found my backups and is ready to restore them.
 The first time you run this, it will likely tell you the restore option is unavailable since you haven’t backed up yet.
 
 4) Select whether you wish to Backup your current saves or Restore previous backups.
