@@ -237,9 +237,9 @@ exit
 :nosavesbackup
 cls
 echo UH OH! You have no saves to back up! :(
-echo Browsers 100% supported: Chrome, MS Edge, and Firefox
-echo If you have one of these browsers, yet your save was still not found, please email me at:
-echo yopu1234 at gmail dot com
+echo Browsers 100 percent supported: Chrome, MS Edge, and Firefox
+echo If you have one of these browsers, yet your save was still not found, please file a GitHub issue.
+echo.
 echo.
 echo Press any key to exit.
 pause >nul
@@ -250,8 +250,7 @@ cls
 echo UH OH! You have no saves to restore! :(
 echo Have you done a backup yet?
 echo.
-echo Can't fix your error? Email me at:
-echo yopu1234 at gmail dot com
+echo Can't fix your error? File a GitHub issue.
 echo.
 echo Press any key to exit.
 pause >nul
